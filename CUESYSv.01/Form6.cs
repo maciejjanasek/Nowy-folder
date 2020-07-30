@@ -16,7 +16,7 @@ namespace CUESYSv._01
         public Form6()
         {
             InitializeComponent();
-            dbConfig();
+            dbConfig();//database connection
             manageFlightDbConn.connect();
             if (manageFlightDbConn.connOpen() == true)
             {
@@ -53,7 +53,7 @@ namespace CUESYSv._01
 
             if (manageFlightDbConn.connOpen() == true)
             {
-                manageFlightDbConn.UpdateFlight(dataGridView1.SelectedCells[0].Value.ToString(), departure.Text, date1, departureTime.Text, arrival.Text, date2, arrivalTime.Text);
+                manageFlightDbConn.UpdateFlight(dataGridView1.SelectedCells[0].Value.ToString(), departure.Text, date1, departureTime.Text, arrival.Text, date2, arrivalTime.Text);//Selection for desired record
                 dataGridView1.DataSource = manageFlightDbConn.qry("SELECT * FROM `tblflights`").Tables[0];
             }
             manageFlightDbConn.connClose();
@@ -61,11 +61,11 @@ namespace CUESYSv._01
 
         private void deleteFlightButton_Click(object sender, EventArgs e)
         {
-            if (DialogResult.Yes == MessageBox.Show("Are you sure you want to delete this record ?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
+            if (DialogResult.Yes == MessageBox.Show("Are you sure you want to delete this record ?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))//confirmation window
             {
                 if (manageFlightDbConn.connOpen() == true)
                 {
-                    manageFlightDbConn.DeleteFlight(dataGridView1.SelectedCells[0].Value.ToString());
+                    manageFlightDbConn.DeleteFlight(dataGridView1.SelectedCells[0].Value.ToString());//Selection for desired record
                     dataGridView1.DataSource = manageFlightDbConn.qry("SELECT * FROM `tblflights`").Tables[0];
                 }
                 manageFlightDbConn.connClose();

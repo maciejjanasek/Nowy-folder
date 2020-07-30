@@ -16,7 +16,7 @@ namespace CUESYSv._01
         public Form2()
         {
             InitializeComponent();
-            dbConfig();
+            dbConfig();//connection with database
             dbsqlConnection.connect();
             if (dbsqlConnection.connOpen() == true)
             {
@@ -111,7 +111,7 @@ namespace CUESYSv._01
             else { varPaid = "N"; }
             if (dbsqlConnection.connOpen() == true)
             {
-                dbsqlConnection.UpdateBooking(dataGridView1.SelectedCells[0].Value.ToString(), custContact.Text, flightNumber.Text, departure.Text, date1, departureTime.Text, arrival.Text, date2, arrivalTime.Text, bookingRoom.Text, bookingCostAdult.Text, bookingCostChild.Text, bookingCostInfant.Text, varPaid);
+                dbsqlConnection.UpdateBooking(dataGridView1.SelectedCells[0].Value.ToString(), custContact.Text, flightNumber.Text, departure.Text, date1, departureTime.Text, arrival.Text, date2, arrivalTime.Text, bookingRoom.Text, bookingCostAdult.Text, bookingCostChild.Text, bookingCostInfant.Text, varPaid);//Selection for desired record
                 dataGridView1.DataSource = dbsqlConnection.qry("SELECT * FROM `tblbookings`").Tables[0];
             }
             dbsqlConnection.connClose();
@@ -119,11 +119,11 @@ namespace CUESYSv._01
 
         private void deleteBookingButton_Click(object sender, EventArgs e)
         {
-            if (DialogResult.Yes == MessageBox.Show("Are you sure you want to delete this record ?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
+            if (DialogResult.Yes == MessageBox.Show("Are you sure you want to delete this record ?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))//Confirmation window
             {
                 if (dbsqlConnection.connOpen() == true)
                 {
-                    dbsqlConnection.DeleteBooking(dataGridView1.SelectedCells[0].Value.ToString());
+                    dbsqlConnection.DeleteBooking(dataGridView1.SelectedCells[0].Value.ToString());//Selection for desired record
                     dataGridView1.DataSource = dbsqlConnection.qry("SELECT * FROM `tblbookings`").Tables[0];
                 }
                 dbsqlConnection.connClose();

@@ -16,7 +16,7 @@ namespace CUESYSv._01
         public Form4()
         {
             InitializeComponent();
-            dbConfig();
+            dbConfig();//dtabase connection
             customerDbConn.connect();
             if (customerDbConn.connOpen() == true)
             {
@@ -52,7 +52,7 @@ namespace CUESYSv._01
         {
             if (customerDbConn.connOpen() == true)
             {
-                customerDbConn.UpdateCustomer(dataGridView1.SelectedCells[0].Value.ToString(), custNationality.Text, custContact.Text, custEmail.Text, custTelephone.Text, AddressLane1.Text, AddressLane2.Text, townCity.Text, postcode.Text);
+                customerDbConn.UpdateCustomer(dataGridView1.SelectedCells[0].Value.ToString(), custNationality.Text, custContact.Text, custEmail.Text, custTelephone.Text, AddressLane1.Text, AddressLane2.Text, townCity.Text, postcode.Text);//Selection for desired record
                 dataGridView1.DataSource = customerDbConn.qry("SELECT * FROM `tblcustomer`").Tables[0];
             }
             customerDbConn.connClose();
@@ -60,11 +60,11 @@ namespace CUESYSv._01
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
-            if (DialogResult.Yes == MessageBox.Show("Are you sure you want to delete this record ?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
+            if (DialogResult.Yes == MessageBox.Show("Are you sure you want to delete this record ?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))//Confirmation window
             {
                 if (customerDbConn.connOpen() == true)
                 {
-                    customerDbConn.DeleteCustomer(dataGridView1.SelectedCells[0].Value.ToString());
+                    customerDbConn.DeleteCustomer(dataGridView1.SelectedCells[0].Value.ToString());//Selection for desired record
                     dataGridView1.DataSource = customerDbConn.qry("SELECT * FROM `tblcustomer`").Tables[0];
                 }
                 customerDbConn.connClose();

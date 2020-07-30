@@ -8,20 +8,6 @@ namespace CUESYSv._01
 {
     public partial class Form1 : Form
     {
-        ///// NOTES START //////////////////////////////////////////////////////////
-        // Should include log items stored on database
-        // Bookings only in single hour "slots", would be better to custom set
-        // Cannot search for booking (by room, date or customer)
-        // Only view and edit upcoming x days
-        // User+Pass check, insecure - later versions should use a database lookup
-        // formatting odd on maximize/resize/different screen resolutions
-        // menu is shown when software ran, this allows modification of customer entries before login - not secure
-        // devlog out of sync with actions
-        // autoscroll devlogs
-        // need to hide menu bar on start (good for debug though)
-        ///// NOTES END ////////////////////////////////////////////////////////////
-
-
         ///// VARIABLES START //////////////////////////////////////////////////////
         dbConn mysqlConn = new dbConn();
         ///// VARIABLES END ////////////////////////////////////////////////////////
@@ -32,7 +18,7 @@ namespace CUESYSv._01
             using (StreamWriter devlog = new StreamWriter("DevLog.txt", append: true))
             { devlog.WriteLine(DateTime.Now + " --- " + logItem); }//Concat current time and logItem and write to DevLog file
         }
-        public bool dbConfig()
+        public bool dbConfig()//connection with databse(dbConn.cs file)
         {
             try
             {
@@ -57,14 +43,14 @@ namespace CUESYSv._01
             {
                 case "Program started":
                     lbUserName.Visible = lbUserPass.Visible = tbUserName.Visible = tbUserPass.Visible = btLogin.Visible = true;//make login controls visible
-                    searchFlightToolStripMenuItem.Visible = roomsToolStripMenuItem.Visible = customerToolStripMenuItem.Visible = printInvoiceToolStripMenuItem.Visible = fileToolStripMenuItem.Visible = manageFlightsToolStripMenuItem.Visible = false;
+                    searchFlightToolStripMenuItem.Visible = roomsToolStripMenuItem.Visible = customerToolStripMenuItem.Visible = printInvoiceToolStripMenuItem.Visible = fileToolStripMenuItem.Visible = manageFlightsToolStripMenuItem.Visible = false;//option buttons not visible until user is not logged in
                         devLogs("Login controls visible, options hidden");
                     break;
                 case "landing":
-                    welcomeLabel.Visible = true;
+                    welcomeLabel.Visible = true;//starting screen
                     break;
                 case "Exit":
-                    Application.Exit();
+                    Application.Exit();//Exit button behaviour
                     break;
                 case "search flight": 
                     searchFlightToolStripMenuItem.Visible = true;
@@ -110,10 +96,10 @@ namespace CUESYSv._01
         private void btLogin_Click(object sender, EventArgs e)
         {
             devLogs("Login button clicked");
-            if (tbUserName.Text == "admin" && tbUserPass.Text == "admin" )
+            if (tbUserName.Text == "admin" && tbUserPass.Text == "admin" )//user password and login, not connected to database, not secure
             { 
                 resetControls("landing"); devLogs("Login success for user " + tbUserName.Text);
-                searchFlightToolStripMenuItem.Visible = roomsToolStripMenuItem.Visible = customerToolStripMenuItem.Visible = fileToolStripMenuItem.Visible = printInvoiceToolStripMenuItem.Visible = manageFlightsToolStripMenuItem.Visible = true;
+                searchFlightToolStripMenuItem.Visible = roomsToolStripMenuItem.Visible = customerToolStripMenuItem.Visible = fileToolStripMenuItem.Visible = printInvoiceToolStripMenuItem.Visible = manageFlightsToolStripMenuItem.Visible = true;//option buttons visible after logging in
             }//Login success
             else
             { MessageBox.Show("Sorry, wrong password/user combo!"); devLogs("Login failure for user " + tbUserName.Text); }//Login failure

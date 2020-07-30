@@ -16,7 +16,7 @@ namespace CUESYSv._01
         public Form5()
         {
             InitializeComponent();
-            dbConfig();
+            dbConfig();//database connection
             printDbConn.connect();
             if (printDbConn.connOpen() == true)
             {
@@ -39,7 +39,7 @@ namespace CUESYSv._01
         }
 
 
-        private void loadBookingButton_Click(object sender, EventArgs e)
+        private void loadBookingButton_Click(object sender, EventArgs e)//sending query to database and preload of data
         {
             if (IDTextBox.Text != "")
             {
@@ -59,7 +59,7 @@ namespace CUESYSv._01
             }
         }
 
-        private void loadData_Click(object sender, EventArgs e)
+        private void loadData_Click(object sender, EventArgs e)//loading desired data for invoice and putting information in form to print
         {
             printInvoiceButton.Visible = true;
             printPreviewButton.Visible = true;
@@ -86,7 +86,7 @@ namespace CUESYSv._01
         }
 
 
-        private void printDocument_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        private void printDocument_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)//invoice apperiance 
         {
             {
                 e.Graphics.DrawString("BT AIRLINES", new Font("Arial", 25, FontStyle.Bold), Brushes.Red, new Point(300, 0));
@@ -125,7 +125,7 @@ namespace CUESYSv._01
 
         }
 
-        private void dataGridView_SelectionChanged(object sender, EventArgs e)
+        private void dataGridView_SelectionChanged(object sender, EventArgs e)//specification for data form database
         {
             string date1 = monthCalendar1.SelectionRange.Start.ToString("MM/dd/yyyy");
             string date2 = monthCalendar2.SelectionRange.Start.ToString("MM/dd/yyyy");

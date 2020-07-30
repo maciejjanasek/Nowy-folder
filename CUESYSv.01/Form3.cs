@@ -17,7 +17,7 @@ namespace CUESYSv._01
         public Form3()
         {
             InitializeComponent();
-            dbConfig();
+            dbConfig();//databse connection
             searchDbConn.connect();
             if (searchDbConn.connOpen() == true)
             {
