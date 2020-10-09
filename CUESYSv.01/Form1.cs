@@ -3,6 +3,8 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.IO;
+using MySql.Data.MySqlClient;
+using System.Data;
 
 namespace CUESYSv._01
 {
@@ -29,6 +31,33 @@ namespace CUESYSv._01
                 return true;
             }
             catch { return false; }
+
+        }
+
+        class DB //connection for login check
+        {
+            private MySqlConnection connection = new MySqlConnection("server=janasekm.cucstudents.org;port=3306;username=ac8453_CUEsys;password=Password123!;database=BT_Airlines_Database");
+
+            public void openConnection() 
+            {
+                if(connection.State == System.Data.ConnectionState.Closed) 
+                {
+                    connection.Open();
+                }
+            }
+
+            public void closeConnection()
+            {
+                if (connection.State == System.Data.ConnectionState.Open)
+                {
+                    connection.Close();
+                }
+            }
+
+            public MySqlConnection getConnection() 
+            {
+                return connection;
+            }
         }
 
         public void resetControls(string newFocus)
@@ -71,7 +100,6 @@ namespace CUESYSv._01
         public Form1()
         {
             InitializeComponent();
-            
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -96,15 +124,34 @@ namespace CUESYSv._01
         private void btLogin_Click(object sender, EventArgs e)
         {
             devLogs("Login button clicked");
-            if (tbUserName.Text == "admin" && tbUserPass.Text == "admin" )//user password and login, not connected to database, not secure
-            { 
-                resetControls("landing"); devLogs("Login success for user " + tbUserName.Text);
-                searchFlightToolStripMenuItem.Visible = roomsToolStripMenuItem.Visible = customerToolStripMenuItem.Visible = fileToolStripMenuItem.Visible = printInvoiceToolStripMenuItem.Visible = manageFlightsToolStripMenuItem.Visible = true;//option buttons visible after logging in
-            }//Login success
-            else
-            { MessageBox.Show("Sorry, wrong password/user combo!"); devLogs("Login failure for user " + tbUserName.Text); }//Login failure
-            tbUserName.Text = ""; tbUserPass.Text = ""; //Clear logon credentials
+
+
+            DB db = new DB();
+
+            String username = tbUserName.Text;
+            String password = tbUserPass.Text;
+
+            DataTable table = new DataTable();
+
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+
+            MySqlCommand command = new MySqlCommand("SELECT * FROM `tblusers` WHERE `username` = @tbUserName AND `password` = @tbUserPass", db.getConnection());
            
+            command.Parameters.Add("@tbUserName", MySqlDbType.VarChar).Value = username;
+            command.Parameters.Add("@tbUserPass", MySqlDbType.VarChar).Value = password;
+
+            adapter.SelectCommand = command;
+
+            adapter.Fill(table);
+
+            if (table.Rows.Count > 0)//user password and login connected to databse, secured, checking if user exists
+              {
+                 resetControls("landing"); devLogs("Login success for user " + tbUserName.Text);
+                 searchFlightToolStripMenuItem.Visible = roomsToolStripMenuItem.Visible = customerToolStripMenuItem.Visible = fileToolStripMenuItem.Visible = printInvoiceToolStripMenuItem.Visible = manageFlightsToolStripMenuItem.Visible = true;//option buttons visible after logging in
+              }//Login success
+            else
+                { MessageBox.Show("Sorry, wrong password/user combo!"); devLogs("Login failure for user " + tbUserName.Text); }//Login failure
+                tbUserName.Text = ""; tbUserPass.Text = ""; //Clear logon credentials
         }
         private void tbUserName_KeyDown(object sender, KeyEventArgs e)
         {

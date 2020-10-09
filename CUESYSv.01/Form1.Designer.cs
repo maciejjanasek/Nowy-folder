@@ -49,9 +49,9 @@
             this.roomsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchFlightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.printInvoiceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.manageFlightsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lbCustTitle = new System.Windows.Forms.Label();
             this.welcomeLabel = new System.Windows.Forms.Label();
-            this.manageFlightsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panClock.SuspendLayout();
             this.mainMenu.SuspendLayout();
             this.SuspendLayout();
@@ -232,6 +232,13 @@
             this.printInvoiceToolStripMenuItem.Text = "Print Invoice";
             this.printInvoiceToolStripMenuItem.Click += new System.EventHandler(this.printInvoiceToolStripMenuItem_Click);
             // 
+            // manageFlightsToolStripMenuItem
+            // 
+            this.manageFlightsToolStripMenuItem.Name = "manageFlightsToolStripMenuItem";
+            this.manageFlightsToolStripMenuItem.Size = new System.Drawing.Size(100, 20);
+            this.manageFlightsToolStripMenuItem.Text = "Manage Flights";
+            this.manageFlightsToolStripMenuItem.Click += new System.EventHandler(this.manageFlightsToolStripMenuItem_Click);
+            // 
             // lbCustTitle
             // 
             this.lbCustTitle.AutoSize = true;
@@ -250,13 +257,6 @@
             this.welcomeLabel.Size = new System.Drawing.Size(250, 55);
             this.welcomeLabel.TabIndex = 29;
             this.welcomeLabel.Text = "Welcome!!";
-            // 
-            // manageFlightsToolStripMenuItem
-            // 
-            this.manageFlightsToolStripMenuItem.Name = "manageFlightsToolStripMenuItem";
-            this.manageFlightsToolStripMenuItem.Size = new System.Drawing.Size(100, 20);
-            this.manageFlightsToolStripMenuItem.Text = "Manage Flights";
-            this.manageFlightsToolStripMenuItem.Click += new System.EventHandler(this.manageFlightsToolStripMenuItem_Click);
             // 
             // Form1
             // 
